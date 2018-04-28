@@ -11,12 +11,16 @@ class MeanTweeter:
         self.secrets = json.load(open('secrets.json'))
         
         self.replied = list()
+        self.api = None
 
     def getApi(self):
-        return twitter.Api(consumer_key=self.secrets['consumer_key'],
-                  consumer_secret=self.secrets['consumer_secret'],
-                  access_token_key=self.secrets['access_token_key'],
-                  access_token_secret=self.secrets['access_token_secret'])
+        if self.api == None:
+            self.api = twitter.Api(consumer_key=self.secrets['consumer_key'],
+                consumer_secret=self.secrets['consumer_secret'],
+                access_token_key=self.secrets['access_token_key'],
+                access_token_secret=self.secrets['access_token_secret'])
+        
+        return self.api
 
     def reply(self, statusID):
         phrasefile = json.load(open(self.phrasesLoc))
@@ -41,13 +45,13 @@ class MeanTweeter:
             if len(results) > 0:
                 latest = results[0]
 
-                if latest not in self.replied:
+                if latest.id not in self.replied:
                     self.reply(latest.id)
                     self.replied.append(latest.id)
 
     def run(self):
         while True:
-            time.sleep(60)
             self.go()
+            time.sleep(30)
 
 MeanTweeter("people.json", "phrases.json", "secrets.json").run()
