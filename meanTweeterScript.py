@@ -19,13 +19,14 @@ for person in people:
     results = api.GetSearch(
         raw_query=query)
 
-    latest = results[0]
+    if len(results) > 0:
+        latest = results[0]
 
-    phraseid = random.randint(0,len(phrases) - 1)
-    phrase = phrases[phraseid]
+        phraseid = random.randint(0,len(phrases) - 1)
+        phrase = phrases[phraseid]
 
-    api.PostUpdate(status=phrase,
-        in_reply_to_status_id=latest.id,
-        auto_populate_reply_metadata=True)
+        api.PostUpdate(status=phrase,
+            in_reply_to_status_id=latest.id,
+            auto_populate_reply_metadata=True)
 
-    print("done!")
+        print("I've been mean to " + person)
