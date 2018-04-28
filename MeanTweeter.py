@@ -47,5 +47,7 @@ class MeanTweeter:
 
     def run(self):
         while True:
-            time.sleep(300)
+            time.sleep(60)
             self.go()
+
+MeanTweeter("people.json", "phrases.json", "secrets.json").run()
