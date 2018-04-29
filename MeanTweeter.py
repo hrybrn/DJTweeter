@@ -28,10 +28,13 @@ class MeanTweeter:
 
         phraseid = random.randint(0,len(phrases) - 1)
         phrase = phrases[phraseid]
-
-        self.getApi().PostUpdate(status=phrase,
-            in_reply_to_status_id=statusID,
-            auto_populate_reply_metadata=True)
+        
+        try:
+            self.getApi().PostUpdate(status=phrase,
+                in_reply_to_status_id=statusID,
+                auto_populate_reply_metadata=True)
+        except:
+            pass
 
     def go(self):
         peoplefile = json.load(open(self.peopleLoc))
@@ -52,6 +55,6 @@ class MeanTweeter:
     def run(self):
         while True:
             self.go()
-            time.sleep(30)
+            time.sleep(180)
 
 MeanTweeter("people.json", "phrases.json", "secrets.json").run()
