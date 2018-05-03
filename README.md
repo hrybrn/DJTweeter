@@ -1,3 +1,3 @@
-meanTweeter
+DJ Tweeter
 
-Idea by James Errington
+A Nathan Production.
