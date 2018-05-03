@@ -31,7 +31,7 @@ class MeanTweeter:
         phraseid = random.randint(0,len(phrases) - 1)
         phrase = phrases[phraseid]
         
-        phrase = "Update No. " + self.updateNo + ".\n" + phrase
+        phrase = "Update No. " + `self.updateNo` + ".\n" + phrase
         self.updateNo = self.updateNo + 1
 
         try:
