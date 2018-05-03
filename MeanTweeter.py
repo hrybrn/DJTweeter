@@ -22,7 +22,7 @@ class MeanTweeter:
         
         return self.api
 
-    def reply(self, statusID):
+    def post(self):
         phrasefile = json.load(open(self.phrasesLoc))
         phrases = phrasefile['phrases']
 
@@ -30,31 +30,13 @@ class MeanTweeter:
         phrase = phrases[phraseid]
         
         try:
-            self.getApi().PostUpdate(status=phrase,
-                in_reply_to_status_id=statusID,
-                auto_populate_reply_metadata=True)
+            self.getApi().PostUpdate(status=phrase)
         except:
             pass
 
-    def go(self):
-        peoplefile = json.load(open(self.peopleLoc))
-        people = peoplefile['people']
-
-        for person in people:
-            query = "q=from%3A" + person
-            results = self.getApi().GetSearch(
-                raw_query=query)
-
-            if len(results) > 0:
-                latest = results[0]
-
-                if latest.id not in self.replied:
-                    self.reply(latest.id)
-                    self.replied.append(latest.id)
-
     def run(self):
         while True:
-            self.go()
-            time.sleep(180)
+            self.post()
+            time.sleep(300)
 
 MeanTweeter("people.json", "phrases.json", "secrets.json").run()
