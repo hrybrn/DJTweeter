@@ -32,7 +32,7 @@ class MeanTweeter:
         phrase = phrases[phraseid]
         
         phrase = "Update No. " + self.updateNo + ".\n" + phrase
-        self.updateNo++
+        self.updateNo = self.updateNo + 1
 
         try:
             self.getApi().PostUpdate(status=phrase)
