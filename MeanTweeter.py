@@ -13,6 +13,8 @@ class MeanTweeter:
         self.replied = list()
         self.api = None
 
+        self.updateNo = 1
+
     def getApi(self):
         if self.api == None:
             self.api = twitter.Api(consumer_key=self.secrets['consumer_key'],
@@ -29,6 +31,9 @@ class MeanTweeter:
         phraseid = random.randint(0,len(phrases) - 1)
         phrase = phrases[phraseid]
         
+        phrase = "Update No. " + self.updateNo + ".\n" + phrase
+        self.updateNo++
+
         try:
             self.getApi().PostUpdate(status=phrase)
         except:
